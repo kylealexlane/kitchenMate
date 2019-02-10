@@ -1,13 +1,6 @@
 {
-  "short_name": "Kyle Lane",
-  "name": "Kyle Lane",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "192x192",
-      "type": "image/png"
-    }
-  ],
+  "short_name": "Kitchen Mate",
+  "name": "Kitchen Mate",
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#00467d",

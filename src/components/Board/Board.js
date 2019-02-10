@@ -1,35 +1,42 @@
 import React from "react";
 import styled, { withTheme } from "styled-components";
 import { Square } from "../Square"
+import { Button } from 'antd';
+
 
 const Row = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: no-wrap
   width: 300px;
+  align-self: center;
 `;
 
-const RestartButton = styled.button`
-  padding: 16px;
-  border-width: 2px;
-  border-color: #000;
-  background-color: #fff;
-  border-radius: "100%";
-  margin: 16px;
+const RestartButton = styled(Button)`
+  margin-top: 24px;
+`;
+
+const WrapperCenter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: "100%";
+  flex-direction: column;
 `;
 
 class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      values: new Array(9).fill(-1),
-      message: "Click any box to start!!",
+      values: Array(9).fill(-1),
+      message: "Click an open box",
       oTurn: true,
       winner: -1,
       turnNum: 1,
     };
-    this.restart = this.restart.bind(this);
-    this.winnerMessage = this.winnerMessage.bind(this);
+    this.restartGame = this.restartGame.bind(this);
+    this.displayWinnerMessage = this.displayWinnerMessage.bind(this);
   }
 
   changeVal(index, val){
@@ -67,8 +74,18 @@ class Board extends React.Component {
           message: "There is a winner!!!!",
           winner: v[winCombo[0]]
         });
+        return true;
       }
     }
+    for(let i = 0; i<v.length; i++){
+      if(v[i] === -1){
+        return false;
+      }
+    }
+    this.setState({
+      message: "The game is a draw",
+    });
+    return false;
   }
 
   handleClick(index, val){
@@ -77,7 +94,7 @@ class Board extends React.Component {
     }
   }
 
-  winnerMessage(){
+  displayWinnerMessage(){
     if(this.state.winner===1){
       return("Xs have won!!")
     }
@@ -87,41 +104,44 @@ class Board extends React.Component {
     return("")
   }
 
-  restart() {
+  restartGame() {
     this.setState({
-      message: "Game has been restarted",
-      values: new Array(9).fill(-1),
-      winner: -1,
+      values: Array(9).fill(-1),
+      message: "Click an open box",
       oTurn: true,
-      turnNum: 1
-    })
+      winner: -1,
+      turnNum: 1,
+      });
   }
 
   render() {
     const v = this.state.values;
+    const RenderSquare = ({ index }) => (
+      <Square val={v[index]} index={index} handleClick={(i, v) => this.handleClick(i, v)}/>
+    );
     return (
-      <React.Fragment>
+      <WrapperCenter>
         <h1>{this.state.message}</h1>
-        <h2>{this.winnerMessage()}</h2>
+        <h2>{this.displayWinnerMessage()}</h2>
         <h2>To Play: {this.state.oTurn ? "o" : "x"}</h2>
         <h2>Turn Number: {this.state.turnNum}</h2>
         <Row>
-          <Square val={v[0]} index={0} handleClick={(i, v) => this.handleClick(i, v)}/>
-          <Square val={v[1]} index={1} handleClick={(i, v) => this.handleClick(i, v)}/>
-          <Square val={v[2]} index={2} handleClick={(i, v) => this.handleClick(i, v)}/>
+          <RenderSquare index={0}/>
+          <RenderSquare index={1}/>
+          <RenderSquare index={2}/>
         </Row>
         <Row>
-          <Square val={v[3]} index={3} handleClick={(i, v) => this.handleClick(i, v)}/>
-          <Square val={v[4]} index={4} handleClick={(i, v) => this.handleClick(i, v)}/>
-          <Square val={v[5]} index={5} handleClick={(i, v) => this.handleClick(i, v)}/>
+          <RenderSquare index={3}/>
+          <RenderSquare index={4}/>
+          <RenderSquare index={5}/>
         </Row>
         <Row>
-          <Square val={v[6]} index={6} handleClick={(i, v) => this.handleClick(i, v)}/>
-          <Square val={v[7]} index={7} handleClick={(i, v) => this.handleClick(i, v)}/>
-          <Square val={v[8]} index={8} handleClick={(i, v) => this.handleClick(i, v)}/>
+          <RenderSquare index={6}/>
+          <RenderSquare index={7}/>
+          <RenderSquare index={8}/>
         </Row>
-        <RestartButton onClick={this.restart}>Restart</RestartButton>
-      </React.Fragment>
+        <RestartButton onClick={this.restartGame}>Restart</RestartButton>
+      </WrapperCenter>
     );
   }
 }

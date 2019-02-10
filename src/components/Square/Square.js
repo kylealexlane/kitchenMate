@@ -7,8 +7,8 @@ import cs from "../../assets/cinnamon_sticks.svg"
 const SquareButton = styled.button`
   width: 100px;
   height: 100px;
-  border-width: 2px;
   border-color: #000;
+  border-width: 2px
 `;
 
 
@@ -56,15 +56,12 @@ class Square extends React.Component {
     }
   }
 
-
   render() {
     const v = this.state.value;
     return (
-      <React.Fragment>
-        <SquareButton onClick={() => this.props.handleClick(this.state.index, this.state.value)}>
-          {this.renderImage(v)}
-        </SquareButton>
-      </React.Fragment>
+      <SquareButton type="primary" onClick={() => this.props.handleClick(this.state.index, this.state.value)}>
+        {this.renderImage(v)}
+      </SquareButton>
     );
   }
 }

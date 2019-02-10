@@ -54,13 +54,11 @@ injectGlobal`
     h2 {
       font-size: 44px;
       font-weight: 400;
-      text-transform: uppercase;
       letter-spacing: 3px;
     }
     h3 {
       font-size: 24px;
       font-weight: 300;
-      text-transform: uppercase;
       letter-spacing: 2px;
     }
     h4 {

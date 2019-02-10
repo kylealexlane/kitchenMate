@@ -15,7 +15,6 @@ function Routes() {
     <ConnectedRouter history={history}>
       <React.Fragment>
         <Container>
-          {/*<Route exact path={process.env.PUBLIC_URL + "/"} component={HomeContainer} />*/}
           <Route exact path={"/"} component={HomeContainer} />
         </Container>
       </React.Fragment>

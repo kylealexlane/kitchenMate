@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { withTheme } from "styled-components";
+import { withTheme } from "styled-components";
 import { Board } from "../Board";
 
 class Home extends React.Component {
@@ -14,9 +14,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
         <Board />
-      </React.Fragment>
     );
   }
 }
